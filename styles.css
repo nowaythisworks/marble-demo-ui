@@ -74,30 +74,6 @@ body {
     animation-delay: 2s;
 }
 
-/* Background slide layers */
-#skew::before {
-    content: '';
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(255, 255, 255, 0.03);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    border-radius: 12px;
-    backdrop-filter: blur(2px);
-    transform-style: preserve-3d;
-    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
-}
-
-/* First background slide */
-#skew::before {
-    transform: translateZ(-16px) translateX(8px) translateY(8px);
-}
-
-/* Second background slide */
-#skew::after {
-    transform: translateZ(-8px) translateX(4px) translateY(4px);
-}
-
 .presentation-slide {
     background: #171a177e;
     border: 1px solid rgba(255, 255, 255, 0.1);
@@ -118,6 +94,7 @@ body {
     font-family: 'Montserrat', sans-serif;
     position: relative;
     z-index: 1;
+    box-shadow: 10px 10px 0px #171a173b;
 }
 
 .presentation-slide h1 {
