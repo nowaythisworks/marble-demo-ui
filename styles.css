@@ -75,11 +75,10 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
-    font-family: 'Libre Baskerville', serif;
+    font-family: 'Montserrat', sans-serif;
 }
 
 .presentation-slide h1 {
-    font-family: 'Montserrat', sans-serif;
     color: white;
     font-size: 1.8rem;
     margin-bottom: 20px;
