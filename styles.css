@@ -4,6 +4,7 @@
 
 * {
     margin: 0;
+    cursor: none;
 }
 
 @keyframes fade-in {
@@ -22,7 +23,6 @@ body {
     overflow: hidden;
     width: 100%;
     height: 100%;
-    cursor: none;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -31,12 +31,66 @@ body {
 
 .main-container {
     width: 100%;
-    max-width: 1200px;
+    max-width: 1400px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    padding: 0 40px;
+    margin: 0 auto;
+    min-height: 100vh;
+    align-items: center;
+}
+
+.left-content {
     display: flex;
     flex-direction: column;
     align-items: center;
-    padding: 0 20px;
-    margin-top: -10vh;
+    width: 100%;
+    max-width: 700px;
+}
+
+.slides-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+}
+
+.presentation-slide {
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 12px;
+    padding: 30px;
+    width: 100%;
+    max-width: 500px;
+    aspect-ratio: 16/10;
+    backdrop-filter: blur(5px);
+    animation: pop-in 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 2s;
+    opacity: 0;
+    transform-origin: center center;
+    will-change: transform, opacity, filter;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+    transform-style: preserve-3d;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.presentation-slide h1 {
+    font-family: 'Montserrat', sans-serif;
+    color: white;
+    font-size: 1.8rem;
+    margin-bottom: 20px;
+    font-weight: 500;
+}
+
+.presentation-slide p {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 1rem;
+    line-height: 1.6;
+    font-weight: 400;
 }
 
 .background-gradient {
@@ -209,14 +263,34 @@ body {
     z-index: 2;
 }
 
+.hero-subtext {
+    font-family: 'Libre Baskerville', serif;
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 1.1rem;
+    text-align: center;
+    margin: 0.15vh auto 1vh;
+    opacity: 0;
+    animation: fade-in 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
+    animation-delay: 1.3s;
+    font-weight: 400;
+    width: 80%;
+}
+
 /* Input Container Styles */
 .input-container {
     animation: fade-in-partial 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
-    animation-delay: 1.5s;
+    animation-delay: 3.1s;
     position: relative;
     width: 90%;
     max-width: 550px;
     margin: 3vh auto 0;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+}
+
+.input-box-container {
+    width: 100%;
     display: flex;
     align-items: center;
     background: rgba(255, 255, 255, 0.085);
@@ -224,7 +298,7 @@ body {
     padding: 4px 12px;
     backdrop-filter: blur(5px);
     border-radius: 10px;
-    opacity: 0;
+    display: none;
 }
 
 .input-box {
@@ -415,6 +489,17 @@ body {
 .pills-row:nth-child(2) .pill:nth-child(4) { animation-delay: 2.9s; }
 
 /* Media Queries for Responsiveness */
+@media (max-width: 1024px) {
+    .main-container {
+        grid-template-columns: 1fr;
+        padding: 40px 20px;
+    }
+
+    .slides-content {
+        display: none;
+    }
+}
+
 @media (max-width: 768px) {
     .hero-text {
         font-size: 2rem;
@@ -493,5 +578,146 @@ body {
 
     .checkbox-container {
         margin-top: 10px;
+    }
+}
+
+.teach-me-button {
+    width: 100%;
+    background: rgba(255, 255, 255, 0.085);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 12px 24px;
+    border-radius: 10px;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.9rem;
+    backdrop-filter: blur(5px);
+    transition: all 0.2s ease;
+    text-align: center;
+}
+
+.teach-me-button:hover {
+    background: rgba(255, 255, 255, 0.35);
+    transform: translateY(-1px);
+}
+
+@keyframes pop-in {
+    0% {
+        opacity: 0;
+        transform: scale(0.95) translateY(10px);
+        filter: blur(10px);
+    }
+    50% {
+        opacity: 0.5;
+        transform: scale(1.02) translateY(-5px);
+        filter: blur(0px);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+        filter: blur(0px);
+    }
+}
+
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-content svg {
+    max-height: 200px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.slide-content svg:hover {
+    transform: scale(1.02);
+}
+
+.slide-content p {
+    text-align: center;
+    margin-top: auto;
+}
+
+/* SVG Specific Styles */
+.algorithm-viz rect {
+    transition: all 0.3s ease;
+}
+
+.algorithm-viz rect:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.complexity-viz path {
+    transition: all 0.3s ease;
+}
+
+.complexity-viz path:hover {
+    opacity: 1;
+    stroke-width: 2;
+}
+
+.marble-slide-text {
+    color: #b956e3;
+    font-weight: bold;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.db-viz rect {
+    transition: all 0.3s ease;
+}
+
+.db-viz rect:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.recursion-viz circle {
+    transition: all 0.3s ease;
+}
+
+.recursion-viz circle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.oop-viz rect {
+    transition: all 0.3s ease;
+}
+
+.oop-viz rect:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.dp-viz rect {
+    transition: all 0.3s ease;
+}
+
+.dp-viz rect:hover {
+    opacity: 1;
+}
+
+.graph-viz circle {
+    transition: all 0.3s ease;
+}
+
+.graph-viz circle:hover {
+    opacity: 1;
+    r: 22;
+}
+
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
     }
 }
