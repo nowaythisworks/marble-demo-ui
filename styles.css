@@ -1,7 +1,13 @@
+/* ===================
+   Global Variables
+   =================== */
 :root {
     --hero-text-anim-delay: 0.15s;
 }
 
+/* ===================
+   Base Styles
+   =================== */
 * {
     margin: 0;
     cursor: none;
@@ -29,6 +35,9 @@ body {
     justify-content: center;
 }
 
+/* ===================
+   Layout & Grid
+   =================== */
 .main-container {
     width: 100%;
     max-width: 1400px;
@@ -54,10 +63,43 @@ body {
     justify-content: center;
     align-items: center;
     width: 100%;
+    position: relative;
+}
+
+#skew {
+    position: relative;
+    transform-style: preserve-3d;
+    opacity: 0;
+    animation: fade-in 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
+    animation-delay: 2s;
+}
+
+/* Background slide layers */
+#skew::before {
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    backdrop-filter: blur(2px);
+    transform-style: preserve-3d;
+    transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
+}
+
+/* First background slide */
+#skew::before {
+    transform: translateZ(-16px) translateX(8px) translateY(8px);
+}
+
+/* Second background slide */
+#skew::after {
+    transform: translateZ(-8px) translateX(4px) translateY(4px);
 }
 
 .presentation-slide {
-    background: rgba(255, 255, 255, 0.05);
+    background: #171a177e;
     border: 1px solid rgba(255, 255, 255, 0.1);
     border-radius: 12px;
     padding: 30px;
@@ -65,17 +107,17 @@ body {
     max-width: 500px;
     aspect-ratio: 16/10;
     backdrop-filter: blur(5px);
-    animation: pop-in 0.8s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-    animation-delay: 2s;
-    opacity: 0;
     transform-origin: center center;
     will-change: transform, opacity, filter;
     transition: all 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0);
     transform-style: preserve-3d;
+    transform: translateZ(0);
     display: flex;
     flex-direction: column;
     gap: 20px;
     font-family: 'Montserrat', sans-serif;
+    position: relative;
+    z-index: 1;
 }
 
 .presentation-slide h1 {
@@ -275,126 +317,9 @@ body {
     width: 80%;
 }
 
-/* Input Container Styles */
-.input-container {
-    animation: fade-in-partial 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
-    animation-delay: 3.1s;
-    position: relative;
-    width: 90%;
-    max-width: 550px;
-    margin: 3vh auto 0;
-    display: flex;
-    align-items: center;
-    opacity: 0;
-}
-
-.input-box-container {
-    width: 100%;
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.085);
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    padding: 4px 12px;
-    backdrop-filter: blur(5px);
-    border-radius: 10px;
-    display: none;
-}
-
-.input-box {
-    flex: 1;
-    background: transparent;
-    border: none;
-    padding: 8px;
-    color: white;
-    font-size: 0.9rem;
-    font-family: 'Montserrat', sans-serif;
-    outline: none;
-}
-
-.input-box::placeholder {
-    color: rgba(255, 255, 255, 0.5);
-}
-
-.send-button {
-    background: transparent;
-    border: none;
-    padding: 6px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    transition: transform 0.2s ease;
-}
-
-.send-button:hover {
-    transform: scale(1.1);
-}
-
-.send-button svg {
-    fill: white;
-    width: 20px;
-    height: 20px;
-    opacity: 0.7;
-}
-
-.checkbox-container {
-    animation: fade-in-partial 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
-    animation-delay: 3.2s;
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    gap: 16px;
-    width: 90%;
-    max-width: 550px;
-    margin: 0 auto;
-    opacity: 0;
-    padding-top: 16px;
-}
-
-.checkbox-label {
-    display: flex;
-    align-items: center;
-    color: rgba(255, 255, 255, 0.8);
-    font-family: 'Montserrat', sans-serif;
-    font-size: 0.85rem;
-    transition: color 0.2s ease;
-}
-
-.checkbox-label:hover {
-    color: white;
-}
-
-.custom-checkbox {
-    appearance: none;
-    -webkit-appearance: none;
-    width: 18px;
-    height: 18px;
-    border: 1px solid rgba(255, 255, 255, 0.3);
-    border-radius: 4px;
-    margin-right: 8px;
-    background: rgba(255, 255, 255, 0.08);
-    position: relative;
-    transition: all 0.2s ease;
-}
-
-.custom-checkbox:checked {
-    background: transparent;
-    border-color: rgba(255, 255, 255, 0.9);
-    border-width: 2px;
-}
-
-.custom-checkbox:checked::after {
-    content: '';
-    position: absolute;
-    width: 4px;
-    height: 8px;
-    border: solid white;
-    border-width: 0 2px 2px 0;
-    top: 2px;
-    left: 5px;
-    transform: rotate(45deg);
-}
-
-/* Pills Container Styles */
+/* ===================
+   Pills Section
+   =================== */
 .pills-container {
     position: relative;
     width: 100%;
@@ -487,7 +412,245 @@ body {
 .pills-row:nth-child(2) .pill:nth-child(3) { animation-delay: 2.7s; }
 .pills-row:nth-child(2) .pill:nth-child(4) { animation-delay: 2.9s; }
 
-/* Media Queries for Responsiveness */
+/* ===================
+   Input Section
+   =================== */
+.input-container {
+    animation: fade-in-partial 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
+    animation-delay: 3.1s;
+    position: relative;
+    width: 90%;
+    max-width: 550px;
+    margin: 3vh auto 0;
+    display: flex;
+    align-items: center;
+    opacity: 0;
+}
+
+.input-box-container {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.085);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 4px 12px;
+    backdrop-filter: blur(5px);
+    border-radius: 10px;
+    display: none;
+}
+
+.input-box {
+    flex: 1;
+    background: transparent;
+    border: none;
+    padding: 8px;
+    color: white;
+    font-size: 0.9rem;
+    font-family: 'Montserrat', sans-serif;
+    outline: none;
+}
+
+.input-box::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.send-button {
+    background: transparent;
+    border: none;
+    padding: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: transform 0.2s ease;
+}
+
+.send-button:hover {
+    transform: scale(1.1);
+}
+
+.send-button svg {
+    fill: white;
+    width: 20px;
+    height: 20px;
+    opacity: 0.7;
+}
+
+/* ===================
+   Checkbox Section
+   =================== */
+.checkbox-container {
+    animation: fade-in-partial 0.5s cubic-bezier(0.25, 0.1, 0.25, 1.0) forwards;
+    animation-delay: 3.2s;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 16px;
+    width: 90%;
+    max-width: 550px;
+    margin: 0 auto;
+    opacity: 0;
+    padding-top: 16px;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    color: rgba(255, 255, 255, 0.8);
+    font-family: 'Montserrat', sans-serif;
+    font-size: 0.85rem;
+    transition: color 0.2s ease;
+}
+
+.checkbox-label:hover {
+    color: white;
+}
+
+.custom-checkbox {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 18px;
+    height: 18px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    margin-right: 8px;
+    background: rgba(255, 255, 255, 0.08);
+    position: relative;
+    transition: all 0.2s ease;
+}
+
+.custom-checkbox:checked {
+    background: transparent;
+    border-color: rgba(255, 255, 255, 0.9);
+    border-width: 2px;
+}
+
+.custom-checkbox:checked::after {
+    content: '';
+    position: absolute;
+    width: 4px;
+    height: 8px;
+    border: solid white;
+    border-width: 0 2px 2px 0;
+    top: 2px;
+    left: 5px;
+    transform: rotate(45deg);
+}
+
+/* ===================
+   Slide Deck
+   =================== */
+.slide-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+    justify-content: center;
+}
+
+.slide-content svg {
+    max-height: 200px;
+    width: 100%;
+    transition: all 0.3s ease;
+}
+
+.slide-content svg:hover {
+    transform: scale(1.02);
+}
+
+.slide-content p {
+    text-align: center;
+    margin-top: auto;
+}
+
+/* ===================
+   SVG Visualizations
+   =================== */
+.algorithm-viz rect {
+    transition: all 0.3s ease;
+}
+
+.algorithm-viz rect:hover {
+    opacity: 1;
+    transform: translateY(-5px);
+}
+
+.complexity-viz path {
+    transition: all 0.3s ease;
+}
+
+.complexity-viz path:hover {
+    opacity: 1;
+    stroke-width: 2;
+}
+
+.marble-slide-text {
+    color: #b956e3;
+    font-weight: bold;
+    font-family: 'Libre Baskerville', serif;
+}
+
+.db-viz rect {
+    transition: all 0.3s ease;
+}
+
+.db-viz rect:hover {
+    opacity: 1;
+    transform: scale(1.05);
+}
+
+.recursion-viz circle {
+    transition: all 0.3s ease;
+}
+
+.recursion-viz circle:hover {
+    opacity: 1;
+    transform: scale(1.1);
+}
+
+.oop-viz rect {
+    transition: all 0.3s ease;
+}
+
+.oop-viz rect:hover {
+    opacity: 1;
+    transform: translateY(-2px);
+}
+
+.dp-viz rect {
+    transition: all 0.3s ease;
+}
+
+.dp-viz rect:hover {
+    opacity: 1;
+}
+
+.graph-viz circle {
+    transition: all 0.3s ease;
+}
+
+.graph-viz circle:hover {
+    opacity: 1;
+    r: 22;
+}
+
+/* ===================
+   Animations
+   =================== */
+@keyframes slide-in {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* ===================
+   Media Queries
+   =================== */
 @media (max-width: 1024px) {
     .main-container {
         grid-template-columns: 1fr;
@@ -617,106 +780,15 @@ body {
     }
 }
 
-.slide-content {
-    flex: 1;
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-    align-items: center;
-    justify-content: center;
+/* Hover effects */
+#skew:hover::before {
+    transform: translateZ(-20px) translateX(12px) translateY(12px);
 }
 
-.slide-content svg {
-    max-height: 200px;
-    width: 100%;
-    transition: all 0.3s ease;
+#skew:hover::after {
+    transform: translateZ(-12px) translateX(6px) translateY(6px);
 }
 
-.slide-content svg:hover {
-    transform: scale(1.02);
-}
-
-.slide-content p {
-    text-align: center;
-    margin-top: auto;
-}
-
-/* SVG Specific Styles */
-.algorithm-viz rect {
-    transition: all 0.3s ease;
-}
-
-.algorithm-viz rect:hover {
-    opacity: 1;
-    transform: translateY(-5px);
-}
-
-.complexity-viz path {
-    transition: all 0.3s ease;
-}
-
-.complexity-viz path:hover {
-    opacity: 1;
-    stroke-width: 2;
-}
-
-.marble-slide-text {
-    color: #b956e3;
-    font-weight: bold;
-    font-family: 'Libre Baskerville', serif;
-}
-
-.db-viz rect {
-    transition: all 0.3s ease;
-}
-
-.db-viz rect:hover {
-    opacity: 1;
-    transform: scale(1.05);
-}
-
-.recursion-viz circle {
-    transition: all 0.3s ease;
-}
-
-.recursion-viz circle:hover {
-    opacity: 1;
-    transform: scale(1.1);
-}
-
-.oop-viz rect {
-    transition: all 0.3s ease;
-}
-
-.oop-viz rect:hover {
-    opacity: 1;
-    transform: translateY(-2px);
-}
-
-.dp-viz rect {
-    transition: all 0.3s ease;
-}
-
-.dp-viz rect:hover {
-    opacity: 1;
-}
-
-.graph-viz circle {
-    transition: all 0.3s ease;
-}
-
-.graph-viz circle:hover {
-    opacity: 1;
-    r: 22;
-}
-
-@keyframes slide-in {
-    from {
-        opacity: 0;
-        transform: translateY(20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+#skew:hover .presentation-slide {
+    transform: translateZ(4px);
 }
