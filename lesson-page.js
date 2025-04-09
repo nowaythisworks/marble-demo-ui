@@ -1,12 +1,4 @@
 document.addEventListener('DOMContentLoaded', function() {
-    // Create custom cursor if it doesn't already exist
-    let cursor = document.querySelector('.custom-cursor');
-    if (!cursor) {
-        cursor = document.createElement('div');
-        cursor.classList.add('custom-cursor');
-        document.body.appendChild(cursor);
-    }
-    
     // Get elements
     const lessonContainer = document.querySelector('.lesson-container');
     const topicItems = document.querySelectorAll('.topic-item');
@@ -48,10 +40,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
-        // Update cursor position immediately
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-
         // Get mouse position relative to center of viewport
         const mouseX = e.clientX - window.innerWidth / 2;
         const mouseY = e.clientY - window.innerHeight / 2;
@@ -61,25 +49,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Update target position for lerping
         patternState.targetX = (mouseX / window.innerWidth) * MAX_OFFSET;
         patternState.targetY = (mouseY / window.innerHeight) * MAX_OFFSET;
-    });
-
-    // Handle click animation
-    document.addEventListener('mousedown', () => {
-        cursor.classList.add('clicked');
-    });
-
-    document.addEventListener('mouseup', () => {
-        cursor.classList.remove('clicked');
-    });
-
-    // Reset position when mouse leaves
-    document.addEventListener('mouseleave', () => {
-        patternState.targetX = patternState.targetY = 0;
-        cursor.style.display = 'none';
-    });
-
-    document.addEventListener('mouseenter', () => {
-        cursor.style.display = 'block';
     });
 
     // Add 3D hover effect to content card
@@ -103,19 +72,6 @@ document.addEventListener('DOMContentLoaded', function() {
         // Reset transformation when mouse leaves
         contentCard.addEventListener('mouseleave', () => {
             contentCard.style.transform = 'perspective(1000px) rotateX(0deg) rotateY(0deg) translateZ(0)';
-        });
-    }
-    
-    // Handle mouse movements for custom cursor
-    if (lessonContainer && cursor) {
-        document.addEventListener('mousemove', function(e) {
-            cursor.style.left = e.clientX + 'px';
-            cursor.style.top = e.clientY + 'px';
-            cursor.style.opacity = '1';
-        });
-        
-        document.addEventListener('mouseleave', function() {
-            cursor.style.opacity = '0';
         });
     }
     

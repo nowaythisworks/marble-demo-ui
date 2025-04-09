@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Select an Exercise - Marble</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        * {
+            cursor: auto;
+        }
+    </style>
+    <link rel="stylesheet" href="select-exercise.css">
+</head>
+
+<body>
+    <div class="main-container select-exercise-container">
+        <!-- Page Title -->
+        <h1 class="page-title">Select an Exercise</h1>
+        
+        <!-- Content Container -->
+        <div class="exercise-content">
+            <!-- Left Panel - Option Buttons -->
+            <div class="options-panel">
+                <a href="" class="option-button primary" data-option="example">
+                    <span>Try an Example</span>
+                </a>
+                <button class="option-button" data-option="upload">
+                    <span>Upload Homework</span>
+                </button>
+                <button class="option-button" data-option="custom">
+                    <span>Enter a Custom Problem</span>
+                </button>
+                <button class="option-button leetcode" data-option="leetcode">
+                    <span>LeetCode</span>
+                </button>
+            </div>
+            
+            <!-- Right Panel - Content Panel -->
+            <div class="content-panel">
+                <!-- Search Bar (for LeetCode view) -->
+                <div class="search-container" id="search-container">
+                    <input type="text" class="search-input" placeholder="Search problems (e.g. 'two sum')">
+                </div>
+                
+                <!-- LeetCode Problems List -->
+                <div class="problems-list" id="leetcode-problems">
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">1:</span>
+                            <span class="problem-name">Two Sum</span>
+                        </div>
+                        <span class="difficulty easy">Easy</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">2:</span>
+                            <span class="problem-name">Add Two Numbers</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">3:</span>
+                            <span class="problem-name">Longest Substring Without Repeating Characters</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">4:</span>
+                            <span class="problem-name">Median of Two Sorted Arrays</span>
+                        </div>
+                        <span class="difficulty hard">Hard</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">5:</span>
+                            <span class="problem-name">Longest Palindromic Substring</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <!-- Add more problems to demonstrate scrolling -->
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">6:</span>
+                            <span class="problem-name">Zigzag Conversion</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">7:</span>
+                            <span class="problem-name">Reverse Integer</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">8:</span>
+                            <span class="problem-name">String to Integer (atoi)</span>
+                        </div>
+                        <span class="difficulty medium">Medium</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">9:</span>
+                            <span class="problem-name">Palindrome Number</span>
+                        </div>
+                        <span class="difficulty easy">Easy</span>
+                    </div>
+                    
+                    <div class="problem-item">
+                        <div class="problem-info">
+                            <span class="problem-number">10:</span>
+                            <span class="problem-name">Regular Expression Matching</span>
+                        </div>
+                        <span class="difficulty hard">Hard</span>
+                    </div>
+                </div>
+                
+                <!-- Upload Area (initially hidden) -->
+                <div class="upload-area" id="upload-area" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="upload-icon">
+                        <path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM14 13v4h-4v-4H7l5-5 5 5h-3z"/>
+                    </svg>
+                    <p>Drag and drop your file here</p>
+                    <p>or</p>
+                    <button class="upload-button">Browse Files</button>
+                </div>
+                
+                <!-- Custom Problem Area (initially hidden) -->
+                <div class="custom-problem-area" id="custom-problem-area" style="display: none;">
+                    <textarea placeholder="Enter your problem description here..."></textarea>
+                </div>
+                
+                <!-- Launch Button Container -->
+                <div class="launch-button-container">
+                    <button class="launch-button" id="launch-button">Launch</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Background Elements -->
+    <div class="background-gradient"></div>
+    <div id="background-dots"></div>
+    <svg width="100%" height="100%" style="position: fixed; top: 0; left: 0; z-index: -2;">
+        <defs>
+            <pattern id="dot-pattern" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse">
+                <circle cx="20" cy="20" r="2" fill="none" stroke="rgba(255, 255, 255, 0.03125)" stroke-width="1">
+                    <animate attributeName="stroke-opacity" dur="3s" values="0.1; 0.5; 0.1" calcMode="spline"
+                        keyTimes="0; 0.5; 1" keySplines="0.4 0 0.2 1; 0.4 0 0.2 1" begin="container.mouseover"
+                        repeatCount="indefinite" />
+                </circle>
+            </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#dot-pattern)" />
+        <g id="ripple-container">
+            <!-- We'll create multiple circles for the ripple effect -->
+            <circle cx="50%" cy="50%" r="0" fill="none" stroke="rgba(255, 255, 255, 0.025)" stroke-width="1">
+                <animate attributeName="r" dur="3s" values="0; 1000" begin="3s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="50%" cy="50%" r="0" fill="none" stroke="rgba(255, 255, 255, 0.025)" stroke-width="1">
+                <animate attributeName="r" dur="6s" values="0; 1000" begin="6s" repeatCount="indefinite" />
+            </circle>
+            <circle cx="50%" cy="50%" r="0" fill="none" stroke="rgba(255, 255, 255, 0.025)" stroke-width="1">
+                <animate attributeName="r" dur="9s" values="0; 1000" begin="9s" repeatCount="indefinite" />
+            </circle>
+        </g>
+    </svg>
+
+    <script src="script.js"></script>
+    <script src="select-exercise.js"></script>
+</body>
+
+</html> 

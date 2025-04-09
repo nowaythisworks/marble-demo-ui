@@ -106,13 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Start the animation
     setTimeout(updateHeroText, 1000);
 
-    const svg = document.querySelector('svg');
     const pattern = document.querySelector('#dot-pattern');
-
-    // Create custom cursor
-    const cursor = document.createElement('div');
-    cursor.classList.add('custom-cursor');
-    document.body.appendChild(cursor);
 
     // Pattern movement state
     const patternState = {
@@ -146,10 +140,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
-        // Update cursor position immediately
-        cursor.style.left = e.clientX + 'px';
-        cursor.style.top = e.clientY + 'px';
-
         // Get mouse position relative to center of viewport
         const mouseX = e.clientX - window.innerWidth / 2;
         const mouseY = e.clientY - window.innerHeight / 2;
@@ -159,25 +149,6 @@ document.addEventListener('DOMContentLoaded', () => {
         // Update target position for lerping
         patternState.targetX = (mouseX / window.innerWidth) * MAX_OFFSET;
         patternState.targetY = (mouseY / window.innerHeight) * MAX_OFFSET;
-    });
-
-    // Handle click animation
-    document.addEventListener('mousedown', () => {
-        cursor.classList.add('clicked');
-    });
-
-    document.addEventListener('mouseup', () => {
-        cursor.classList.remove('clicked');
-    });
-
-    // Reset position when mouse leaves
-    document.addEventListener('mouseleave', () => {
-        patternState.targetX = patternState.targetY = 0;
-        cursor.style.display = 'none';
-    });
-
-    document.addEventListener('mouseenter', () => {
-        cursor.style.display = 'block';
     });
 
     // Add mouse tracking for presentation slide skew effect
