@@ -36,7 +36,7 @@ body {
     left: 50%;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, transparent, rgba(185, 86, 227, 0.7), transparent);
+    /* background: linear-gradient(90deg, transparent, rgba(185, 86, 227, 0.7), transparent); */
     transform: translateX(-50%);
     animation: title-underline 2s ease-in-out forwards;
 }
@@ -83,6 +83,10 @@ body {
     position: relative;
     overflow: hidden;
     z-index: 1;
+    cursor: pointer;
+}
+
+.option-button span {
     cursor: pointer;
 }
 
@@ -179,7 +183,6 @@ body {
 
 .content-panel:hover {
     box-shadow: 15px 15px 0 rgba(23, 26, 23, 0.15);
-    transform: translateY(-2px) translateX(-2px);
 }
 
 /* Search Bar */

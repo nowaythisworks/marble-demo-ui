@@ -29,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
             temp.style.fontWeight = 'bolder';
             temp.style.left = '-9999px';
             temp.innerHTML = element.innerHTML;
-            
+
             // Increase buffer from 4px to 20px to prevent text cutoff
             let offset = 15;
             if (temp.innerHTML == heroNouns[0]) {
@@ -60,12 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const currentText = highlightContainer.querySelector('.highlight.active');
         let nextIndex = (currentIndex + 1) % heroNouns.length;
-        
+
         if (nextIndex === 0) {
             isAnimating = false;
             return;
         }
-        
+
         if (nextIndex === heroNouns.length - 1) didFinishLoop = true;
 
         // Create new text element
@@ -135,14 +135,42 @@ document.addEventListener('DOMContentLoaded', () => {
         requestAnimationFrame(updatePattern);
     };
 
+    // Handle click animation
+    document.addEventListener('mousedown', () => {
+        cursor.classList.add('clicked');
+    });
+
+    document.addEventListener('mouseup', () => {
+        cursor.classList.remove('clicked');
+    });
+
+    // Reset position when mouse leaves
+    document.addEventListener('mouseleave', () => {
+        patternState.targetX = patternState.targetY = 0;
+        cursor.style.display = 'none';
+    });
+
+    document.addEventListener('mouseenter', () => {
+        cursor.style.display = 'block';
+    });
+
     // Start animation loop
     updatePattern();
+
+    // Create custom cursor
+    const cursor = document.createElement('div');
+    cursor.classList.add('custom-cursor');
+    document.body.appendChild(cursor);
 
     // Track mouse movement
     document.addEventListener('mousemove', (e) => {
         // Get mouse position relative to center of viewport
         const mouseX = e.clientX - window.innerWidth / 2;
         const mouseY = e.clientY - window.innerHeight / 2;
+
+        // Update cursor position immediately
+        cursor.style.left = e.clientX + 'px';
+        cursor.style.top = e.clientY + 'px';
 
         // Calculate offset (max 50px in any direction)
         const MAX_OFFSET = 50;
@@ -167,15 +195,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calculate mouse position relative to the center of the slide
         const centerX = slideRect.left + slideRect.width / 2;
         const centerY = slideRect.top + slideRect.height / 2;
-        
+
         // Calculate distance from center (-1 to 1)
         const distanceX = (e.clientX - centerX) / (window.innerWidth / 2);
         const distanceY = (e.clientY - centerY) / (window.innerHeight / 2);
-        
+
         // Apply rotation transform with smooth transition
         const rotateX = -distanceY * 5;
         const rotateY = distanceX * 10;
-        
+
         presentationSlide.style.transform = `
             perspective(1000px)
             rotateX(${rotateX}deg)
@@ -189,7 +217,7 @@ document.addEventListener('DOMContentLoaded', () => {
     async function typeText(text) {
         const input = document.querySelector('.input-box');
         input.value = '';
-        
+
         for (let i = 0; i < text.length; i++) {
             input.value += text[i];
             await new Promise(resolve => setTimeout(resolve, 2));
@@ -224,12 +252,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // Function to update slide content
     function updateSlideContent(pillText) {
         const slideContent = document.querySelector('.presentation-slide');
-        
+
         // Clear existing content
         slideContent.innerHTML = '';
-        
+
         // Create content based on pill type
-        switch(pillText) {
+        switch (pillText) {
             case 'Insertion Sort':
                 slideContent.innerHTML = `
                     <h1>Insertion Sort Visualization</h1>
@@ -257,7 +285,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Watch as each element finds its correct position in the sorted portion of the array.</p>
                     </div>`;
                 break;
-                
+
             case 'Time Complexity':
                 slideContent.innerHTML = `
                     <h1>Algorithm Time Complexity</h1>
@@ -285,7 +313,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Compare how different algorithms scale with input size.</p>
                     </div>`;
                 break;
-                
+
             case 'Database Design':
                 slideContent.innerHTML = `
                     <h1>Database Normalization</h1>
@@ -315,7 +343,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Learn about relationships and normalization in database design.</p>
                     </div>`;
                 break;
-                
+
             case 'Recursion':
                 slideContent.innerHTML = `
                     <h1>Understanding Recursion</h1>
@@ -339,7 +367,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Visualize how recursive functions break down problems into smaller sub-problems.</p>
                     </div>`;
                 break;
-                
+
             case 'OOP Concepts':
                 slideContent.innerHTML = `
                     <h1>Object-Oriented Programming</h1>
@@ -364,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Explore inheritance, encapsulation, polymorphism, and abstraction.</p>
                     </div>`;
                 break;
-                
+
             case 'Dynamic Programming':
                 slideContent.innerHTML = `
                     <h1>Dynamic Programming</h1>
@@ -397,7 +425,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>See how solutions to subproblems are stored and reused.</p>
                     </div>`;
                 break;
-                
+
             case 'Graph Algorithms':
                 slideContent.innerHTML = `
                     <h1>Graph Algorithms</h1>
@@ -426,7 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         <p>Explore traversal, shortest paths, and network flow algorithms.</p>
                     </div>`;
                 break;
-                
+
             default:
                 slideContent.innerHTML = `
                     <h1>Learning Made Simple</h1>
